@@ -2,45 +2,75 @@
 #include <stdlib.h>
 
 /**
+ * reverse_list - a function that reverses the linked list in-place.
+ * @head: pointer to the head of the linked list.
+ *
+ * Return: pointer to the new head of the reversed list.
+ */
+listint_t *reverse_list(listint_t *head)
+{
+	listint_t *prev = NULL;
+	listint_t *current = head;
+	listint_t *next = NULL;
+
+	while (current != NULL)
+	{
+		next = current->next;
+		current->next = prev;
+		prev = current;
+		current = next;
+	}
+
+	return (prev);
+}
+
+/**
  * is_palindrome - a function that checks if a singly linked list
  * is a palindrome.
- * @head: pointer to pointer to first node in list.
+ * @headptr: pointer to pointer to first node in list.
  *
  * Return: 0 if it is not a palindrome, 1 if it is a palindrome.
  */
-int is_palindrome(listint_t **head)
+int is_palindrome(listint_t **headptr)
 {
-	listint_t *current = *head;
-	int *array;
-	int i, count;
+	listint_t *head = *headptr;
+	listint_t *slow = head, *fast = head, *prevSlow = NULL, *middle = NULL;
+	listint_t *p1, *p2, *second_half;
+	int palindrome = 1;
 
-	if (head == NULL || *head == NULL)
+	if (headptr == NULL || head == NULL || head->next == NULL)
 		return (1);
-
-	for (count = 0; current != NULL; count++)
-		current = current->next;
-
-	array = (int *)malloc(sizeof(int) * count);
-
-	if (array == NULL)
-		return (0);
-
-	current = *head;
-	for (i = 0; i < count; i++)
+	while (fast != NULL && fast->next != NULL)
 	{
-		array[i] = current->n;
-		current = current->next;
+		fast = fast->next->next;
+		prevSlow = slow;
+		slow = slow->next;
 	}
-
-	for (i = 0; i < count / 2; i++)
+	if (fast != NULL)
 	{
-		if (array[i] != array[count - 1 - i])
+		middle = slow;
+		slow = slow->next;
+	}
+	second_half = reverse_list(slow);
+	p1 = head;
+	p2 = second_half;
+	while (p1 != NULL && p2 != NULL)
+	{
+		if (p1->n != p2->n)
 		{
-			free(array);
-			return (0);
+			palindrome = 0;
+			break;
 		}
+		p1 = p1->next;
+		p2 = p2->next;
 	}
-
-	free(array);
-	return (1);
+	second_half = reverse_list(second_half);
+	if (middle != NULL)
+	{
+		prevSlow->next = middle;
+		middle->next = second_half;
+	}
+	else
+		prevSlow->next = second_half;
+	return (palindrome);
 }
