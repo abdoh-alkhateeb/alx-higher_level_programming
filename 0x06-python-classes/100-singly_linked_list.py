@@ -46,7 +46,6 @@ class SinglyLinkedList:
 
     def sorted_insert(self, value):
         """Insert a new Node into the correct sorted position in list."""
-
         new_node = Node(value)
 
         if self.__head is None or self.__head.data >= value:
@@ -61,9 +60,9 @@ class SinglyLinkedList:
 
     def __str__(self):
         """Return a string representation of the linked list for printing."""
-        result = ""
+        result = []
         current = self.__head
         while current is not None:
-            result += str(current.data) + "\n"
+            result.append(str(current.data))
             current = current.next_node
-        return result
+        return "\n".join(result)
