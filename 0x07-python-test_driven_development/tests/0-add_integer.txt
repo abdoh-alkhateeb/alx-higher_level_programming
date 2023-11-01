@@ -7,6 +7,14 @@ TypeError: add_integer() missing 1 required positional argument: 'a'
 99
 >>> add_integer(1, 2)
 3
+>>> add_integer(-5, 10)
+5
+>>> add_integer(10, -3)
+7
+>>> add_integer(-7, -3)
+-10
+>>> add_integer(100.3, -2)
+98
 >>> add_integer(1.5, 2)
 3
 >>> add_integer(1.5, 2.5)
