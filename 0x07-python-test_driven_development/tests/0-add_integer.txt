@@ -5,6 +5,14 @@ Traceback (most recent call last):
 TypeError: add_integer() missing 1 required positional argument: 'a'
 >>> add_integer(1)
 99
+>>> add_integer(0)
+98
+>>> add_integer(0.0)
+98
+>>> add_integer("0")
+Traceback (most recent call last):
+    ...
+TypeError: a must be an integer
 >>> add_integer(1, 2)
 3
 >>> add_integer(-5, 10)
@@ -33,3 +41,7 @@ TypeError: b must be an integer
 Traceback (most recent call last):
     ...
 OverflowError: cannot convert float infinity to integer
+>>> add_integer(2, float('nan'))
+Traceback (most recent call last):
+    ...
+ValueError: cannot convert float NaN to integer
