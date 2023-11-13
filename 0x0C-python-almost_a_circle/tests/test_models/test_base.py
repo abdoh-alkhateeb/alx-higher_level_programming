@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
 Module that tests class Base.
 """
@@ -17,8 +18,9 @@ class TestBase(unittest.TestCase):
         """
         Method called to prepare the test fixture.
         """
+
         Base._Base__nb_objects = 0
-        
+
         json_files = os.listdir(".")
         for file in json_files:
             if file.endswith(".json"):
@@ -28,6 +30,7 @@ class TestBase(unittest.TestCase):
         """
         Method called immediately after the test method has been called.
         """
+
         pass
 
     def test_attributes(self):
